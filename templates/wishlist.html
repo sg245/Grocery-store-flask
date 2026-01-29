@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Wishlist</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f6f8fb;
+        }
+
+        .wishlist-card {
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+
+        .wishlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .product-img {
+            height: 180px;
+            object-fit: contain;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h2 class="fw-bold mb-4">❤️ My Wishlist</h2>
+
+    {% if wishlist_items|length == 0 %}
+        <div class="text-center mt-5">
+            <h5 class="text-muted">Your wishlist is empty 😔</h5>
+            <a href="/" class="btn btn-success mt-3">Start Shopping</a>
+        </div>
+    {% endif %}
+
+    <div class="row">
+
+        {% for product in wishlist_items %}
+        <div class="col-md-3 mb-4">
+
+            <div class="card wishlist-card border-0">
+
+                <img src="{{ url_for('static', filename=product.image_url) }}"
+                     class="product-img mx-auto d-block">
+
+                <div class="card-body text-center">
+
+                    <h6 class="fw-semibold">{{ product.name }}</h6>
+
+                    <p class="text-success fw-bold mb-2">
+                        ₹ {{ product.price }}
+                    </p>
+
+                    <a href="/add-to-cart/{{ product.id }}"
+                       class="btn btn-success btn-sm w-100 mb-2">
+                        Add to Cart
+                    </a>
+
+                    <a href="/toggle-wishlist/{{ product.id }}"
+                       class="btn btn-outline-danger btn-sm w-100">
+                        Remove ❤️
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
