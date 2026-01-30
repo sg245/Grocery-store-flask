@@ -1,52 +1,77 @@
-*# 🛒 Grocery Store Web Application*
+<img width="1909" height="909" alt="image" src="https://github.com/user-attachments/assets/c5caaf28-dce1-41f6-ba5e-4922d07812de" /># 🛒 Grocery Store Web Application
 
+A full-stack grocery store web application built using **Flask** and **MySQL**.
 
+---
 
-*A full-stack grocery store website built using Flask and MySQL.*
+## 🚀 Features
 
+- User login & signup  
+- Product listing  
+- Search & category filtering  
+- Cart system  
+- Wishlist  
+- Order placement  
+- Order tracking  
+- Admin dashboard  
+- Product management  
 
+---
 
-*## Features*
+## 🧰 Tech Stack
 
-*- User login \& signup*
+- Python (Flask)
+- MySQL
+- HTML, CSS, Bootstrap
+- Jinja2
 
-*- Product listing*
+---
 
-*- Search \& category filter*
+## ▶️ How to Run Locally
 
-*- Cart system*
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sg245/Grocery-store-flask.git
 
-*- Wishlist*
+2.Navigate to the project folder:
+    cd Grocery-store-flask
 
-*- Order placement*
+3.Install dependencies:
+    pip install -r requirements.txt
 
-*- Order tracking*
+4.Run the application:
+    python app.py
 
-*- Admin dashboard*
+5.Open browser and visit:
+   - User Side:
+      http://127.0.0.1:5000/
+    
+  - Admin Side:
+     http://127.0.0.1:5000/admin  
+    Username: `admin`  
+    Password: `admin`
 
-*- Product management*
+📸 Screenshots
 
+### Home Page
+![Home Page](screenshots/home.png)
 
+### Cart Page
+![Cart Page](screenshots/cart.png)
 
-*## Tech Stack*
+### Admin Dashboard
+![Admin Dashboard](screenshots/admin.png)
 
-*- Python (Flask)*
+### Wishlist Page
+![Wishlist Page](screenshots/wishlist.png)
 
-*- MySQL*
+### Payment Page
+![Payment Page](screenshots/payment.png)
 
-*- HTML, CSS, Bootstrap*
+### Order Placed Page
+![Order Placed confirmation Page](screenshots/order_placed.png)
 
-*- Jinja2*
-
-
-
-*## How to Run*
-
-*```bash*
-
-*pip install -r requirements.txt*
-
-*python app.py*
-
+### View order Page
+![View order Page](screenshots/view_order.png)
 
 
