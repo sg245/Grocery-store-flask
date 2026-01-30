@@ -60,7 +60,7 @@ A full-stack grocery store web application built using **Flask** and **MySQL**.
 ![Cart Page](screenshots/cart.png)
 
 ### Admin Dashboard
-![Admin Dashboard](screenshots/admin.png)
+![Admin Dashboard](screenshots/admin_dashboard.png)
 
 ### Wishlist Page
 ![Wishlist Page](screenshots/wishlist.png)
