@@ -7,48 +7,53 @@ app.secret_key = "secret123"
 
 @app.route("/")
 def home():
-
     search_query = request.args.get("search")
+    category = request.args.get("category")
 
     conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor(dictionary=True, buffered=True)
+
+    # -------------------------
+    # BUILD PRODUCT QUERY
+    # -------------------------
+    query = "SELECT * FROM products"
+    params = []
 
     if search_query:
+        query += " WHERE name LIKE %s"
+        params.append(f"%{search_query}%")
+
+    elif category:
+        query += " WHERE category = %s"
+        params.append(category)
+
+    cursor.execute(query, params)
+    products = cursor.fetchall()   # ✅ ALWAYS defined
+
+    # -------------------------
+    # FETCH WISHLIST IDS
+    # -------------------------
+    wishlist_ids = []
+
+    if "user_id" in session:
         cursor.execute(
-            "SELECT * FROM products WHERE name LIKE %s",
-            (f"%{search_query}%",)
+            "SELECT product_id FROM wishlist WHERE user_id=%s",
+            (session["user_id"],)
         )
-    else:
-        category = request.args.get("category")
-
-        if category:
-            cursor.execute(
-                "SELECT * FROM products WHERE category = %s",
-                (category,)
-            )
-        else:
-            cursor.execute("SELECT * FROM products")
-            products = cursor.fetchall()
-            wishlist_ids = []
-
-            if "user_id" in session:
-                cursor.execute(
-                    "SELECT product_id FROM wishlist WHERE user_id=%s",
-                    (session["user_id"],)
-                )
-                wishlist_ids = [row["product_id"] for row in cursor.fetchall()]
+        wishlist_ids = [row["product_id"] for row in cursor.fetchall()]
 
     cursor.close()
     conn.close()
 
-    user_name = session.get("user_name")
-
+    # -------------------------
+    # CART COUNT
+    # -------------------------
     cart_count = 0
     if "user_id" in session:
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "SELECT SUM(quantity) FROM cart WHERE user_id = %s",
+            "SELECT SUM(quantity) FROM cart WHERE user_id=%s",
             (session["user_id"],)
         )
         result = cursor.fetchone()
@@ -58,10 +63,11 @@ def home():
 
     return render_template(
         "home.html",
-        user_name=user_name,
         products=products,
+        search_query=search_query,
+        wishlist_ids=wishlist_ids,
         cart_count=cart_count,
-        wishlist_ids=wishlist_ids
+        user_name=session.get("user_name")
     )
 
 
